@@ -10,7 +10,7 @@ function useSocketData(data: WebsocketData) {
   }
   if (socketData.length > 0) {
     updatedList = [...socketData];
-    const existingToken = updatedList.findIndex((item: any) => {
+    const existingToken = updatedList.findIndex((item: WebsocketData) => {
       return item.s == data.s;
     });
 

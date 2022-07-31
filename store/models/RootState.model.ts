@@ -1,4 +1,4 @@
-import { WebsocketData } from "./models/Websocket.model";
+import { WebsocketData } from "./Websocket.model";
 
 export interface RootState {
   socket: {
