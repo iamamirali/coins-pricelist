@@ -20,9 +20,10 @@ export function getSocketData() {
         `wss://stream.binance.com:9443/ws/${token}@trade`
       );
       socket.onmessage = (event: MessageEvent) => {
+        const { data } = event;
         dispatch({
           type: "getWebsocket",
-          payload: JSON.parse(event.data),
+          payload: JSON.parse(data),
         });
       };
     }

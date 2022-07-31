@@ -1,16 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
-import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import useSocketData from "../hooks/useSocketData";
 import { actionCreators } from "../store/action-creators/index";
+import { RootState } from "../store/rootState.model";
 
 const Home: NextPage = () => {
-  const state = useSelector((state: any) => state);
+  const socketData = useSelector((state: RootState) => state.socket.data);
   const dispatch = useDispatch();
   const { getSocketData } = bindActionCreators(actionCreators, dispatch);
-  const [tokenData] = useSocketData(state.socket.data);
+  const [tokenData] = useSocketData(socketData);
 
   useEffect(() => {
     getSocketData();
