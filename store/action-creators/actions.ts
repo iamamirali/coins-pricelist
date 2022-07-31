@@ -19,9 +19,9 @@ export function getSocketData() {
       const socket = new WebSocket(
         `wss://stream.binance.com:9443/ws/${token}@trade`
       );
-      socket.onmessage = (event: any) => {
+      socket.onmessage = (event: MessageEvent) => {
         dispatch({
-          type: "websocket",
+          type: "getWebsocket",
           payload: JSON.parse(event.data),
         });
       };

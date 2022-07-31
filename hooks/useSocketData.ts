@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { WebsocketData } from "../store/models/Websocket.model";
 
-function useSocketData(data: any) {
-  const [socketData, setSocketData] = useState<any>([]);
-  let updatedList: any = [];
+function useSocketData(data: WebsocketData) {
+  const [socketData, setSocketData] = useState<WebsocketData[]>([]);
+  let updatedList: WebsocketData[] = [];
 
   if (socketData.length == 0 && data) {
     setSocketData([data]);

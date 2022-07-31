@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux";
 import { bindActionCreators } from "redux";
 import useSocketData from "../hooks/useSocketData";
 import { actionCreators } from "../store/action-creators/index";
@@ -25,7 +25,6 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <h1>binance price list</h1>
-        <h2>{tokenData.length}</h2>
         {tokenData.length > 0 &&
           tokenData.map((item: any) => {
             return (
