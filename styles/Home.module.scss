@@ -1,0 +1,11 @@
+@import "./variables.scss";
+
+.container {
+  .header {
+    border-bottom: 1px solid $darkGray;
+    text-align: center;
+    .title {
+      color: $milky;
+    }
+  }
+}

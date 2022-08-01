@@ -1,11 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Cabin&family=Source+Sans+Pro&display=swap");
+@import "./variables.scss";
+
 * {
   box-sizing: border-box;
+  font-family: "Cabin", sans-serif;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
+}
+
+body {
+  background-color: $black;
 }
 
 a {
