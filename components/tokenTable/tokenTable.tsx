@@ -4,30 +4,41 @@ import { RootState } from "store/models/RootState.model";
 import { cryptoSymbol } from "crypto-symbol";
 import { WebsocketData } from "store/models/Websocket.model";
 import TableStyles from "./tokenTable.module.scss";
+import { useEffect, useState } from "react";
 
 const { nameLookup } = cryptoSymbol({});
 
 function TokenTable() {
   const socketData = useSelector((state: RootState) => state.socket.data);
   const [tokenData] = useSocketData(socketData);
+  const [newData, setNewData] = useState<WebsocketData[]>([]);
+  const [oldData, setOldData] = useState<WebsocketData[]>([]);
+
+  useEffect(() => {
+    const tokenDataTimer = setTimeout(() => {
+      setOldData(newData);
+      setNewData(tokenData);
+    }, 2000);
+    return () => clearTimeout(tokenDataTimer);
+  }, [newData]);
 
   function getTokenSymbol(token: string) {
     return token.split("USDT")[0];
   }
 
   function showCryptoList() {
-    return tokenData.map((item: WebsocketData) => {
-      const { p, s } = item;
-      const tokenSymbol = getTokenSymbol(s);
+    return newData.map((item: WebsocketData, i) => {
+      const { p: price, s: symbol } = item;
+      const tokenSymbol = getTokenSymbol(symbol);
       const tokenName = nameLookup(tokenSymbol);
 
       return (
-        <tr key={s}>
+        <tr key={symbol}>
           <td>
             {tokenName}{" "}
-            <span className={TableStyles.extraTitle}>{tokenSymbol}</span>
+            <span className={TableStyles.symbol}>{tokenSymbol}</span>
           </td>
-          <td>${+p}</td>
+          <td>${+price}</td>
         </tr>
       );
     });
@@ -38,9 +49,7 @@ function TokenTable() {
       <thead className={TableStyles.head}>
         <tr>
           <th>Token Name</th>
-          <th>
-            Price <span className={TableStyles.extraTitle}>(USDT)</span>
-          </th>
+          <th>Price</th>
         </tr>
       </thead>
       <tbody className={TableStyles.body}>

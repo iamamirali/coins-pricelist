@@ -4,6 +4,7 @@ const tokens = [
   "btcusdt",
   "ethusdt",
   "dogeusdt",
+  "adausdt",
   "etcusdt",
   "vetusdt",
   "xrpusdt",
