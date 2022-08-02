@@ -1,0 +1,32 @@
+@import "./styles/variables";
+
+.table {
+  color: $white;
+  border-spacing: 0;
+  border: 1px solid $darkGray;
+  margin: 48px auto;
+  text-align: center;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 60%;
+
+  .head {
+    tr {
+      background-color: $lightBlack;
+    }
+    th {
+      padding: 18px;
+      color: $gray;
+      width: 50%;
+    }
+  }
+  .body {
+    tr:nth-child(even) {
+      background-color: $lightBlack;
+    }
+    td {
+      padding: 24px;
+      width: 50%;
+    }
+  }
+}
