@@ -5,6 +5,7 @@ import { cryptoSymbol } from "crypto-symbol";
 import { WebsocketData } from "store/models/Websocket.model";
 import TableStyles from "./tokenTable.module.scss";
 import { useEffect, useState } from "react";
+import changeDetector from "services/changeDetoctor";
 
 const { nameLookup } = cryptoSymbol({});
 
@@ -31,6 +32,7 @@ function TokenTable() {
       const { p: price, s: symbol } = item;
       const tokenSymbol = getTokenSymbol(symbol);
       const tokenName = nameLookup(tokenSymbol);
+      const status = `tokenPrice${changeDetector(+oldData[i]?.p, +price)}`;
 
       return (
         <tr key={symbol}>
@@ -38,7 +40,7 @@ function TokenTable() {
             {tokenName}{" "}
             <span className={TableStyles.symbol}>{tokenSymbol}</span>
           </td>
-          <td>${+price}</td>
+          <td className={TableStyles[status]}>${+price}</td>
         </tr>
       );
     });
