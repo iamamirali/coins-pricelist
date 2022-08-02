@@ -8,14 +8,17 @@ function TokenTable() {
   const socketData = useSelector((state: RootState) => state.socket.data);
   const [tokenData] = useSocketData(socketData);
 
-  //   console.log(tokenData);
+  function showTokenSymbol(token: string) {
+    return token.split("USDT")[0];
+  }
 
   function showCryptoList() {
     return tokenData.map((item: WebsocketData) => {
+      const { p, s } = item;
       return (
-        <tr key={item.s}>
-          <td>{item.s}</td>
-          <td>{+item.p}</td>
+        <tr key={s}>
+          <td>{showTokenSymbol(s)}</td>
+          <td>{+p}</td>
         </tr>
       );
     });
@@ -26,7 +29,9 @@ function TokenTable() {
       <thead className={TableStyles.head}>
         <tr>
           <th>Token</th>
-          <th>Price</th>
+          <th>
+            Price <span className={TableStyles.currency}>(USDT)</span>
+          </th>
         </tr>
       </thead>
       <tbody className={TableStyles.body}>
