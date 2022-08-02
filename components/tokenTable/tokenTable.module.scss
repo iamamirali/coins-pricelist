@@ -5,22 +5,25 @@
   border-spacing: 0;
   border: 1px solid $darkGray;
   margin: 48px auto;
-  text-align: center;
   border-radius: 12px;
   overflow: hidden;
   width: 60%;
 
+  .extraTitle {
+    font-size: 14px;
+    margin-left: 4px;
+    color: $gray;
+  }
+
   .head {
+    text-align: left;
     tr {
       background-color: $lightBlack;
     }
     th {
-      padding: 18px;
+      padding: 18px 48px;
       color: $gray;
       width: 50%;
-      .currency {
-        font-size: 14px;
-      }
     }
   }
   .body {
@@ -28,7 +31,7 @@
       background-color: $lightBlack;
     }
     td {
-      padding: 24px;
+      padding: 24px 48px;
       width: 50%;
     }
   }
