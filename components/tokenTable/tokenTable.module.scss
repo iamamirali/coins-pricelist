@@ -33,15 +33,14 @@
         color: $gray;
       }
     }
+    .tokenPriceSame {
+      color: $white;
+    }
+    .tokenPriceIncrease {
+      color: $green;
+    }
+    .tokenPriceDecrease {
+      color: $red;
+    }
   }
-}
-
-.tokenPriceSame {
-  color: white;
-}
-.tokenPriceIncrease {
-  color: green;
-}
-.tokenPriceDecrease {
-  color: red;
 }

@@ -1,0 +1,18 @@
+export const tokens = [
+  "btc",
+  "eth",
+  "doge",
+  "ada",
+  "etc",
+  "vet",
+  "xrp",
+  "shib",
+  "link",
+  "luna",
+  "avax",
+  "sol",
+  "algo",
+  "btt",
+  "dot",
+  "uni",
+];
