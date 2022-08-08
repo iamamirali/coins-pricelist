@@ -8,7 +8,7 @@ export const tokens = [
   "xrp",
   "shib",
   "link",
-  "luna",
+  "bnb",
   "avax",
   "sol",
   "algo",

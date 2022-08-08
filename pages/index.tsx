@@ -33,4 +33,13 @@ const Home: NextPage = () => {
   );
 };
 
+export async function getServerSideProps() {
+  const response = await fetch(
+    `https://api.nomics.com/v1/currencies/ticker?key=97dd300a852ee541aa3b91dca21d70e712007311&ids=BTC`
+  );
+  const data = await response.json();
+
+  return { props: { data } };
+}
+
 export default Home;

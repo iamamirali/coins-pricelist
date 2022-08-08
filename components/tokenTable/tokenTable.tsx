@@ -19,6 +19,7 @@ function TokenTable() {
       setNewData(tokenData);
     }, 2000);
     return () => clearTimeout(tokenDataTimer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newData]);
 
   return (
