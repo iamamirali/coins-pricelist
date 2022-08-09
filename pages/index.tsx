@@ -6,15 +6,20 @@ import { bindActionCreators } from "redux";
 import { actionsList } from "../store/action-creators";
 import HomeStyles from "./../styles/Home.module.scss";
 import TokenTable from "components/tokenTable/tokenTable";
+import { tokens } from "services/tokens";
+import { HomeProps } from "./models/props.model";
 
-const Home: NextPage = () => {
+const Home: NextPage<HomeProps> = ({ tokenData }) => {
   const dispatch = useDispatch();
-  const { getSocketData } = bindActionCreators(actionsList, dispatch);
+  const { getSocketData, getTokenData } = bindActionCreators(
+    actionsList,
+    dispatch
+  );
 
   useEffect(() => {
     getSocketData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getTokenData(tokenData);
+  }, [getSocketData, getTokenData, tokenData]);
 
   return (
     <>
@@ -35,11 +40,13 @@ const Home: NextPage = () => {
 
 export async function getServerSideProps() {
   const response = await fetch(
-    `https://api.nomics.com/v1/currencies/ticker?key=97dd300a852ee541aa3b91dca21d70e712007311&ids=BTC`
+    `https://api.nomics.com/v1/currencies/ticker?key=97dd300a852ee541aa3b91dca21d70e712007311&ids=${tokens
+      .toString()
+      .toUpperCase()}`
   );
-  const data = await response.json();
+  const tokenData = await response.json();
 
-  return { props: { data } };
+  return { props: { tokenData } };
 }
 
 export default Home;

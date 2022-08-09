@@ -1,27 +1,16 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import Image from "next/image";
 import changeDetector from "services/changeDetoctor";
 import { WebsocketData } from "store/models/Websocket.model";
 import TableStyles from "./tokenTable.module.scss";
-import { tokens } from "services/tokens";
 import { TokenNewOldDataProps } from "components/models/props.model";
+import { useSelector } from "react-redux";
+import { RootState } from "store/models/RootState.model";
+import { TokenData } from "store/models/TokenData.model";
 
 const ShowTokenData = (props: TokenNewOldDataProps) => {
   const { newData, oldData } = props;
-  const [cryptoData, setCryptoData] = useState<any>();
-  async function getTokenData() {
-    const response = await fetch(
-      `https://api.nomics.com/v1/currencies/ticker?key=97dd300a852ee541aa3b91dca21d70e712007311&ids=${tokens
-        .toString()
-        .toUpperCase()}`
-    );
-    const data = await response.json();
-    setCryptoData(data);
-  }
-
-  useEffect(() => {
-    getTokenData();
-  }, []);
+  const tokenData = useSelector((state: RootState) => state.tokenData.data);
 
   function getTokenSymbol(token: string) {
     return token.split("USDT")[0];
@@ -35,16 +24,28 @@ const ShowTokenData = (props: TokenNewOldDataProps) => {
         +oldData[i]?.p,
         +price
       )}`;
-      const tokenData = cryptoData?.find((token: any) => {
+      const cryptoData = tokenData?.find((token: TokenData) => {
         return token.symbol == tokenSymbol;
       });
-      const { name, logo_url } = tokenData;
+      const { name, logo_url } = cryptoData as TokenData;
 
       return (
         <tr key={symbol}>
           <td>
-            <Image src={logo_url} alt={name} width="25px" height="25px" />
-            {name} <span className={TableStyles.symbol}>{tokenSymbol}</span>
+            <div className={TableStyles.tokenItem}>
+              <Image
+                src={logo_url}
+                alt={name}
+                className={TableStyles.tokenIcon}
+                width="25px"
+                height="25px"
+                style={{
+                  borderRadius: "50%",
+                }}
+              />
+              <span className={TableStyles.tokenName}>{name}</span>
+              <span className={TableStyles.symbol}>{tokenSymbol}</span>
+            </div>
           </td>
           <td className={TableStyles[changeStatus]}>${+price}</td>
         </tr>

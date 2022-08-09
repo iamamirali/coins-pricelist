@@ -27,10 +27,19 @@
     td {
       padding: 24px 48px;
       width: 50%;
-      .symbol {
-        font-size: 14px;
-        margin-left: 4px;
-        color: $gray;
+      .tokenItem {
+        display: flex;
+        justify-content: space-between;
+        width: fit-content;
+        align-items: center;
+        .symbol {
+          font-size: 14px;
+          margin-left: 4px;
+          color: $gray;
+        }
+        .tokenName {
+          margin: 0px 6px 0px 8px;
+        }
       }
     }
     .tokenPriceSame {
