@@ -16,41 +16,51 @@ const ShowTokenData = (props: TokenNewOldDataProps) => {
     return token.split("USDT")[0];
   }
 
-  function showCryptoList() {
-    return newData.map((item: WebsocketData, i: number) => {
-      const { p: price, s: symbol } = item;
-      const tokenSymbol = getTokenSymbol(symbol);
-      const changeStatus = `tokenPrice${changeDetector(
-        +oldData[i]?.p,
-        +price
-      )}`;
-      const cryptoData = tokenData?.find((token: TokenData) => {
-        return token.symbol == tokenSymbol;
-      });
-      const { name, logo_url } = cryptoData as TokenData;
+  function tokenRankFinder(socketToken: WebsocketData) {
+    return tokenData.find((item) => socketToken.s == `${item.symbol}USDT`)
+      ?.rank;
+  }
 
-      return (
-        <tr key={symbol}>
-          <td>
-            <div className={TableStyles.tokenItem}>
-              <Image
-                src={logo_url}
-                alt={name}
-                className={TableStyles.tokenIcon}
-                width="25px"
-                height="25px"
-                style={{
-                  borderRadius: "50%",
-                }}
-              />
-              <span className={TableStyles.tokenName}>{name}</span>
-              <span className={TableStyles.symbol}>{tokenSymbol}</span>
-            </div>
-          </td>
-          <td className={TableStyles[changeStatus]}>${+price}</td>
-        </tr>
-      );
-    });
+  function showCryptoList() {
+    return newData
+      .sort(
+        (tokenA, tokenB) =>
+          Number(tokenRankFinder(tokenA)) - Number(tokenRankFinder(tokenB))
+      )
+      .map((item: WebsocketData, i: number) => {
+        const { p: price, s: symbol } = item;
+        const tokenSymbol = getTokenSymbol(symbol);
+        const changeStatus = `tokenPrice${changeDetector(
+          +oldData[i]?.p,
+          +price
+        )}`;
+        const cryptoData = tokenData?.find((token: TokenData) => {
+          return token.symbol == tokenSymbol;
+        });
+        const { name, logo_url } = cryptoData as TokenData;
+
+        return (
+          <tr key={symbol}>
+            <td>
+              <div className={TableStyles.tokenItem}>
+                <Image
+                  src={logo_url}
+                  alt={name}
+                  className={TableStyles.tokenIcon}
+                  width="25px"
+                  height="25px"
+                  style={{
+                    borderRadius: "50%",
+                  }}
+                />
+                <span className={TableStyles.tokenName}>{name}</span>
+                <span className={TableStyles.symbol}>{tokenSymbol}</span>
+              </div>
+            </td>
+            <td className={TableStyles[changeStatus]}>${+price}</td>
+          </tr>
+        );
+      });
   }
 
   return <>{showCryptoList()}</>;

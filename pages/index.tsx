@@ -45,7 +45,6 @@ export async function getServerSideProps() {
       .toUpperCase()}`
   );
   const tokenData = await response.json();
-
   return { props: { tokenData } };
 }
 

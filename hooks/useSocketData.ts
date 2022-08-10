@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "store/models/RootState.model";
 import { WebsocketData } from "../store/models/Websocket.model";
 
 function useSocketData(data: WebsocketData) {
   const [socketData, setSocketData] = useState<WebsocketData[]>([]);
+  const tokenData = useSelector((state: RootState) => state.tokenData.data);
   let updatedList: WebsocketData[] = [];
 
   if (socketData.length == 0 && data) {

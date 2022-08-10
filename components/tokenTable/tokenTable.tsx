@@ -12,6 +12,7 @@ function TokenTable() {
   const [tokenData] = useSocketData(socketData);
   const [newData, setNewData] = useState<WebsocketData[]>([]);
   const [oldData, setOldData] = useState<WebsocketData[]>([]);
+  const data = useSelector((state: RootState) => state.tokenData.data);
 
   useEffect(() => {
     const tokenDataTimer = setTimeout(() => {
